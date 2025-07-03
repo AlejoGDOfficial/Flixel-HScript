@@ -19,7 +19,6 @@ class Paths
 {
     public static inline final IMAGE_EXT = 'png';
 	public static inline final SOUND_EXT = #if web 'mp3' #else 'ogg' #end;
-	public static inline final VIDEO_EXT = 'mp4';
 
 	public static var cachedGraphics:StringMap<FlxGraphic> = new StringMap<FlxGraphic>();
     public static var cachedSounds:StringMap<Sound> = new StringMap<Sound>();
@@ -135,21 +134,6 @@ class Paths
         }
 
         return File.getContent(getPath(path));
-    }
-
-    public static function video(file:String, missingPrint:Bool = true):String
-    {
-        var path = 'videos/' + file + '.' + VIDEO_EXT;
-
-        if (!fileExists(path))
-        {
-            if (missingPrint)
-                Sys.println('[ MISSING FILE ] ' + path);
-
-            return null;
-        }
-
-        return getPath(path);
     }
 
     public static function imageTxt(file:String, missingPrint:Bool = true):String
