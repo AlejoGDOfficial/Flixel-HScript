@@ -33,6 +33,13 @@ class HScript extends ALERuleScript
 			tryExecute(File.getContent(filePath), onError);
 	}
 
+	override public function onError(error:Exception):Dynamic
+	{
+		Sys.println('[ ERROR ] ' + error);
+		
+		return super.onError(error);
+	}
+
 	override private function preset():Void
 	{
 		super.preset();
