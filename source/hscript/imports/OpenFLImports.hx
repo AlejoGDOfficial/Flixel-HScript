@@ -2,6 +2,8 @@ package hscript.imports;
 
 import openfl.Lib;
 
+import openfl.filters.ShaderFilter;
+
 import openfl.net.DatagramSocket;
 import openfl.net.FileFilter;
 import openfl.net.FileReference;
