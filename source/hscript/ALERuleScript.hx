@@ -70,8 +70,7 @@ class ALERuleScript extends RuleScript
 
 			backend.CustomState,
 			backend.CustomSubState,
-			Paths,
-			haxe.Json
+			Paths
 		];
 
         for (theClass in presetClasses)
@@ -79,7 +78,8 @@ class ALERuleScript extends RuleScript
 
 		var presetVariables:StringMap<Dynamic> = [
 			'FlxColor' => HScriptFlxColor,
-			'FlxKey' => HScriptFlxKey
+			'FlxKey' => HScriptFlxKey,
+			'Json' => hscript.ALEJson
 		];
 
 		for (preVar in presetVariables.keys())
