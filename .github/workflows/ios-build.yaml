@@ -13,20 +13,29 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4.1.7
 
-      - uses: krdlab/setup-haxe@master
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.3.7
 
       - name: Install Haxelibs
         run: |
           chmod +x ./setup/install-haxelibs-unix.sh
-          sh ./setup/install-haxelibs-unix.sh
+          ./setup/install-haxelibs-unix.sh
 
-      - name: Build for iOS
-        run: haxelib run lime build ios -release
+      - name: Build for iOS (no code sign)
+        run: haxelib run lime build ios -release -Dno-code-sign
 
-      - name: Upload Build
+      - name: Package .ipa
+        run: |
+          cd export/release/ios/build/Release-iphoneos
+          mkdir Payload
+          cp -r FlixelHScript.app Payload/
+          zip -r FlixelHScript.ipa Payload
+          mv FlixelHScript.ipa ../../..
+
+      - name: Upload .ipa
         uses: actions/upload-artifact@v4
         with:
-          name: Flixel HScript - iOS Build
-          path: export/release/ios
+          name: FlixelHScript-ipa
+          path: export/release/ios/FlixelHScript.ipa
