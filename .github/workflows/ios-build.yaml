@@ -15,8 +15,9 @@ jobs:
 
       - name: Setup Haxe
         run: |
-          brew install haxe
-          haxe 4.3.7
+          brew tap haxe/haxe
+          brew install haxe@4.3.7
+          echo 'export PATH="/opt/homebrew/opt/haxe@4.3.7/bin:$PATH"' >> $GITHUB_ENV
 
       - name: Install Haxelibs
         run: |
