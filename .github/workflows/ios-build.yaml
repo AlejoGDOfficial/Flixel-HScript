@@ -24,7 +24,7 @@ jobs:
           ./setup/install-haxelibs-unix.sh
 
       - name: Build for iOS (no code sign)
-        run: haxelib run lime build ios -release -Dno-code-sign
+        run: haxelib run lime build ios
 
       - name: Package .ipa
         run: |
