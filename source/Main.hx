@@ -12,6 +12,10 @@ import lime.app.Application;
 
 import backend.CustomState;
 
+#if cpp
+import cpp.RawPointer;
+#end
+
 class Main extends Sprite
 {
 	public function new()
