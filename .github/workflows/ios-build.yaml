@@ -11,16 +11,16 @@ jobs:
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.7
 
-      - name: Setup Haxe
-        run: |
-          brew install haxe
+      - uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.7
 
       - name: Install Haxelibs
         run: |
-          chmod +x setup/install-haxelibs.bat
-          ./setup/install-haxelibs.bat
+          chmod +x ./setup/install-haxelibs-unix.sh
+          sh ./setup/install-haxelibs-unix.sh
 
       - name: Build for iOS
         run: haxelib run lime build ios -release
