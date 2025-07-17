@@ -15,7 +15,7 @@ jobs:
 
       - name: Setup Haxe
         run: |
-          brew install haxe@4.3.7
+          brew install haxe
 
       - name: Install Haxelibs
         run: |
