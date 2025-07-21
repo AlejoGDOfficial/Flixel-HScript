@@ -11,6 +11,7 @@ import hscript.Printer;
 import rulescript.RuleScript;
 import rulescript.Tools;
 import rulescript.parsers.HxParser;
+import rulescript.scriptedClass.RuleScriptedClassUtil;
 
 import hscript.ALERuleScript;
 
@@ -129,6 +130,21 @@ class MainState extends FlxState
             }
     
             return obj;
+        };
+
+        RuleScriptedClassUtil.buildBridge = function (typeName:String, superInstance:Dynamic):RuleScript
+        {
+            var script = new ALERuleScript();
+
+            script.getParser(HxParser).mode = MODULE;
+
+            script.superInstance = superInstance;
+
+            script.interp.skipNextRestore = true;
+
+            script.execute(File.getContent(Paths.getPath('scripts/classes/' + typeName.replace('.', '/') + '.hx')));
+
+            return script;
         };
 
         super.create();
