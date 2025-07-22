@@ -111,7 +111,7 @@ class MainState extends FlxState
 
 			script.superInstance = superInstance;
 
-			//cast(script.interp, RuleScriptInterp).skipNextRestore = true;
+			cast(script.interp, RuleScriptInterp).skipNextRestore = true;
 
 			if (type.isExpr)
 			{
