@@ -74,8 +74,6 @@ class MainState extends FlxState
 
         allocConsole();
 		#end
-
-        ALERuleScript.preset();
         
 		ScriptedTypeUtil.resolveModule = function (name:String):Array<ModuleDecl>
         {

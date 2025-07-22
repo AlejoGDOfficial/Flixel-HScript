@@ -15,7 +15,9 @@ class ALERuleScript extends RuleScript
 
 	override public function new()
 	{
-		super();
+		super(new Context());
+
+		preset();
 
 		getParser(HxParser).allowAll();
 
@@ -29,7 +31,7 @@ class ALERuleScript extends RuleScript
 		return error.details();
 	}
 
-	public static function preset():Void
+	public function preset():Void
 	{
 		var presetClasses:Array<Class<Dynamic>> = [
 			flixel.FlxG,
@@ -73,7 +75,7 @@ class ALERuleScript extends RuleScript
 		];
 
         for (theClass in presetClasses)
-			RuleScript.defaultImports.get('').set(Type.getClassName(theClass).split('.').pop(), theClass);
+			context.types.set(Type.getClassName(theClass).split('.').pop(), theClass);
 
 		var presetVariables:StringMap<Dynamic> = [
 			'FlxColor' => HScriptFlxColor,
@@ -82,7 +84,7 @@ class ALERuleScript extends RuleScript
 		];
 
 		for (preVar in presetVariables.keys())
-			RuleScript.defaultImports.get('').set(preVar, presetVariables.get(preVar));
+			context.types.set(preVar, presetVariables.get(preVar));
 	}
 
 	public function call(func:String, ?args:Array<Dynamic>)
