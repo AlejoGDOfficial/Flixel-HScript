@@ -26,7 +26,7 @@ class CustomState extends ScriptState
     }
 
     override public function create()
-    {        
+    {
         super.create();
 
         instance = this;

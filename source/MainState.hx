@@ -12,6 +12,10 @@ import rulescript.RuleScript;
 import rulescript.Tools;
 import rulescript.parsers.HxParser;
 import rulescript.scriptedClass.RuleScriptedClassUtil;
+import rulescript.scriptedClass.RuleScriptedClass.ScriptedClass;
+import rulescript.interps.RuleScriptInterp;
+import rulescript.types.ScriptedTypeUtil;
+import rulescript.types.ScriptedAbstract;
 
 import hscript.ALERuleScript;
 
@@ -70,83 +74,124 @@ class MainState extends FlxState
 
         allocConsole();
 		#end
+
+        ALERuleScript.preset();
         
-		RuleScript.resolveScript = function (name:String):Dynamic
+		ScriptedTypeUtil.resolveModule = function (name:String):Array<ModuleDecl>
         {
-            var path:String = 'scripts/classes/' + name.replace('.', '/') + '.hx';
-    
-            if (!Paths.fileExists(path))
+            var path:Array<String> = name.split('.');
+
+            var pack:Array<String> = [];
+
+            while (path[0].charAt(0) == path[0].charAt(0).toLowerCase())
+                pack.push(path.shift());
+
+            var moduleName:String = null;
+
+            if (path.length > 1)
+                moduleName = path.shift();
+
+            var filePath = 'scripts/classes/' + (pack.length >= 1 ? pack.join('.') + '.' + (moduleName ?? path[0]) : path[0]).replace('.', '/') + '.hx';
+
+            if (!Paths.fileExists(filePath))
                 return null;
-    
+
             var parser = new HxParser();
             parser.allowAll();
             parser.mode = MODULE;
-    
-            var module:Array<ModuleDecl> = parser.parseModule(File.getContent(Paths.getPath(path)));
-    
-            var newModule:Array<ModuleDecl> = [];
-    
-            var extend:String = null;
-    
+
+            return parser.parseModule(File.getContent(Paths.getPath(filePath)));
+        }
+
+        RuleScriptedClassUtil.buildBridge = function (typePath:String, superInstance:Dynamic):RuleScript
+        {
+			var type:ScriptedClassType = ScriptedTypeUtil.resolveScript(typePath);
+
+			var script = new hscript.ALERuleScript();
+
+			script.superInstance = superInstance;
+
+			//cast(script.interp, RuleScriptInterp).skipNextRestore = true;
+
+			if (type.isExpr)
+			{
+				script.execute(cast type);
+
+				script;
+			} else {
+				var cl:ScriptedClass = cast type;
+
+				RuleScriptedClassUtil.buildScriptedClass(cl, script);
+			}
+
+			return script;
+        };
+
+        ScriptedTypeUtil.resolveScript = function (name:String):Dynamic
+        {
+            final path:Array<String> = name.split('.');
+
+            final pack:Array<String> = [];
+
+            while (Tools.startsWithLowerCase(path[0]))
+                pack.push(path.shift());
+
+            var moduleName:String = null;
+
+            if (path.length > 1)
+                moduleName = path.shift();
+
+            final module = ScriptedTypeUtil.resolveModule((pack.length >= 1 ? pack.join('.') + '.' + (moduleName ?? path[0]) : path[0]));
+            // Check file.
+
+            if (module == null)
+                return null;
+
+            final typeName = path[0];
+
+            // Remove other types, include packages, imports and etc.
+            final newModule:Array<ModuleDecl> = [];
+
+            var typeDecl:Null<ModuleDecl> = null;
+
             for (decl in module)
             {
                 switch (decl)
                 {
                     case DPackage(_), DUsing(_), DImport(_):
                         newModule.push(decl);
-                    case DClass(c):
-                        if (name.split('.').pop() == c.name)
-                        {
-                            newModule.push(decl);
-    
-                            if (c.extend != null)
-                                extend = new Printer().typeToString(c.extend);
-                        }
+                    case DClass(c) if (c.name == typeName):
+                        typeDecl = decl;
+                    case DAbstract(c) if (c.name == typeName):
+                        typeDecl = decl;
                     default:
                 }
             }
-    
-            var obj:Dynamic = null;
-    
-            if (extend == null)
+
+            newModule.push(typeDecl);
+
+            return switch (typeDecl)
             {
-                var script = new ALERuleScript();
-    
-                script.execute(Tools.moduleDeclsToExpr(newModule));
-    
-                obj = {};
-    
-                for (key => value in script.variables)
-                    Reflect.setField(obj, key, value);
-            } else {
-                var cl = Type.resolveClass(extend);
-    
-                var f = function(args:Array<Dynamic>)
-                {
-                    return Type.createInstance(cl, [name, args]);
-                }
-    
-                obj = Reflect.makeVarArgs(f);
+                case DClass(classImpl):
+                    final scriptedClass = new ScriptedClass({
+                        name: moduleName ?? path[0],
+                        path: pack.join('.'),
+                        decl: newModule
+                    }, classImpl?.name);
+
+                    RuleScriptedClassUtil.registerRuleScriptedClass(scriptedClass.toString(), scriptedClass);
+
+                    scriptedClass;
+                case DAbstract(abstractImpl):
+                    new ScriptedAbstract({
+                        name: moduleName ?? path[0],
+                        path: pack.join('.'),
+                        decl: newModule
+                    }, abstractImpl?.name);
+                default: null;
             }
-    
-            return obj;
         };
-
-        RuleScriptedClassUtil.buildBridge = function (typeName:String, superInstance:Dynamic):RuleScript
-        {
-            var script = new ALERuleScript();
-
-            script.getParser(HxParser).mode = MODULE;
-
-            script.superInstance = superInstance;
-
-            script.interp.skipNextRestore = true;
-
-            script.execute(File.getContent(Paths.getPath('scripts/classes/' + typeName.replace('.', '/') + '.hx')));
-
-            return script;
-        };
-
+        
         super.create();
         
         FlxG.switchState(() -> new backend.CustomState('Main'));

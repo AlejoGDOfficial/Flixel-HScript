@@ -27,23 +27,16 @@ class HScript extends ALERuleScript
 
 		super();
 
+		preset();
+
 		scriptName = filePath.split('/').pop();
 
 		if (FileSystem.exists(filePath))
 			tryExecute(File.getContent(filePath), onError);
 	}
 
-	override public function onError(error:Exception):Dynamic
+	function preset():Void
 	{
-		Sys.println('[ ERROR ] ' + error);
-		
-		return super.onError(error);
-	}
-
-	override private function preset():Void
-	{
-		super.preset();
-		
 		var instanceVariables:StringMap<Dynamic> = new StringMap<Dynamic>();
 		
 		if (type == STATE)

@@ -2,6 +2,7 @@ package hscript;
 
 import rulescript.RuleScript;
 import rulescript.parsers.HxParser;
+import rulescript.Context;
 
 import haxe.ds.StringMap;
 import haxe.Exception;
@@ -19,18 +20,16 @@ class ALERuleScript extends RuleScript
 		getParser(HxParser).allowAll();
 
 		this.errorHandler = onError;
-
-		preset();
 	}
-
+	
 	public function onError(error:Exception):Dynamic
 	{
-		failedParsing = true;
+		Sys.println('[ ERROR ] ' + error);
 		
 		return error.details();
 	}
 
-	private function preset():Void
+	public static function preset():Void
 	{
 		var presetClasses:Array<Class<Dynamic>> = [
 			flixel.FlxG,
@@ -74,7 +73,7 @@ class ALERuleScript extends RuleScript
 		];
 
         for (theClass in presetClasses)
-            setClass(theClass);
+			RuleScript.defaultImports.get('').set(Type.getClassName(theClass).split('.').pop(), theClass);
 
 		var presetVariables:StringMap<Dynamic> = [
 			'FlxColor' => HScriptFlxColor,
@@ -83,7 +82,7 @@ class ALERuleScript extends RuleScript
 		];
 
 		for (preVar in presetVariables.keys())
-			set(preVar, presetVariables.get(preVar));
+			RuleScript.defaultImports.get('').set(preVar, presetVariables.get(preVar));
 	}
 
 	public function call(func:String, ?args:Array<Dynamic>)
@@ -103,7 +102,7 @@ class ALERuleScript extends RuleScript
 
 	public function set(name:String, value:Dynamic)
 		variables.set(name, value);
-
+	
 	public function setClass(cls:Class<Dynamic>)
 	{
 		set(Type.getClassName(cls).split('.').pop(), cls);
