@@ -78,8 +78,6 @@ class ALERuleScript extends RuleScript
 			context.types.set(Type.getClassName(theClass).split('.').pop(), theClass);
 
 		var presetVariables:StringMap<Dynamic> = [
-			'FlxColor' => HScriptFlxColor,
-			'FlxKey' => HScriptFlxKey,
 			'Json' => hscript.ALEJson
 		];
 
