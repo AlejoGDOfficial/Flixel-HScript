@@ -38,5 +38,8 @@
 
 	<haxedef name="message.reporting" value="pretty"/>
 
+	<haxeflag name="-dce" value="no" />
+	<haxeflag name="--macro" value="backend.macro.IncludeClassesMacro.include()" />
+	
 	<haxedef name='no-deprecation-warnings'/>
 </project>

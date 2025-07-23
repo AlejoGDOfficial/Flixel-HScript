@@ -7,8 +7,6 @@ import rulescript.Context;
 import haxe.ds.StringMap;
 import haxe.Exception;
 
-import hscript.HScriptImports;
-
 class ALERuleScript extends RuleScript
 {
 	public var failedParsing:Bool = false;
