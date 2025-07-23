@@ -272,14 +272,16 @@ class MainState extends FlxState
 
 			backend.CustomState,
 			backend.CustomSubState,
-			Paths
+			Paths,
+            CoolUtil
 		];
 
         for (theClass in presetClasses)
 			curPackage.set(Type.getClassName(theClass).split('.').pop(), theClass);
 
 		var presetVariables:StringMap<Dynamic> = [
-			'Json' => hscript.ALEJson
+			'Json' => hscript.ALEJson,
+            'debugTrace' => CoolUtil.debugTrace
 		];
 
 		for (preVar in presetVariables.keys())

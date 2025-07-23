@@ -43,7 +43,7 @@ class Paths
         }
 
         if (missingPrint)
-            Sys.println('[ MISSING FILE ] ' + path);
+            debugTrace(path, MISSING_FILE);
 
         return null;
     }
@@ -100,7 +100,7 @@ class Paths
         }
 
         if (missingPrint)
-            Sys.println('[ MISSING FILE ] ' + path);
+            debugTrace(path, MISSING_FILE);
 
         return null;
     }
@@ -128,7 +128,7 @@ class Paths
         if (!fileExists(path))
         {
             if (missingPrint)
-                Sys.println('[ MISSING FILE ] ' + path);
+                debugTrace(path, MISSING_FILE);
 
             return null;
         }
@@ -143,7 +143,7 @@ class Paths
         if (!fileExists(path))
         {
             if (missingPrint)
-                Sys.println('[ MISSING FILE ] ' + path);
+                debugTrace(path, MISSING_FILE);
 
             return null;
         }
@@ -158,7 +158,7 @@ class Paths
         if (!fileExists(file))
         {
             if (missingPrint)
-                Sys.println('[ MISSING FILE ] ' + path);
+                debugTrace(path, MISSING_FILE);
             
             return null;
         }
@@ -209,7 +209,7 @@ class Paths
         if (!fileExists(path))
         {
             if (missingPrint)
-                Sys.println('[ MISSING FILE ] ' + path);
+                debugTrace(path, MISSING_FILE);
 
             return null;
         }
@@ -223,7 +223,7 @@ class Paths
             return 'assets/' + file;
 
         if (missingPrint)
-            Sys.println('[ MISSING FILE ] ' + file);
+            debugTrace(file, MISSING_FILE);
 
         return null;
     }

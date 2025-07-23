@@ -22,7 +22,7 @@ class ALERuleScript extends RuleScript
 	
 	public function onError(error:Exception):Dynamic
 	{
-		Sys.println('[ ERROR ] ' + error);
+		debugTrace(error, ERROR);
 		
 		return error.details();
 	}
@@ -37,7 +37,7 @@ class ALERuleScript extends RuleScript
 			{
 				Reflect.callMethod(null, func, args ?? []);
 			} catch(error:Exception) {
-				Sys.println('[ ERROR ] ' + error.message);
+				debugTrace(error.message, ERROR);
 			}
 		}
 	}

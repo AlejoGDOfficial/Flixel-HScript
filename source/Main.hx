@@ -59,7 +59,7 @@ class Main extends Sprite
 				case FilePos(s, file, line, column):
 					errMsg += file + " (line " + line + ")\n";
 				default:
-					Sys.println(stackItem);
+					debugTrace(stackItem, ERROR);
 			}
 		}
 
@@ -67,7 +67,7 @@ class Main extends Sprite
 	
 		Application.current.window.alert(errMsg, 'Flixel HScript | Crash Handler');
 
-		Sys.println('[ ERROR ] ' + errMsg);
+		debugTrace(errMsg, ERROR);
 
 		Sys.exit(1);
 	}

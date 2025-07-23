@@ -96,7 +96,7 @@ class ScriptState extends FlxState
             {
                 hScripts.push(script);
 
-                Sys.println('"' + path + '.hx" has been Successfully Loaded');
+                debugTrace('"' + path + '.hx" has been Successfully Loaded', HSCRIPT);
             }
         }
     }
