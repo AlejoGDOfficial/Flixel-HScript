@@ -17,8 +17,11 @@ import rulescript.interps.RuleScriptInterp;
 import rulescript.types.ScriptedTypeUtil;
 import rulescript.types.ScriptedAbstract;
 
+import haxe.ds.StringMap;
+
 import hscript.ALERuleScript;
 
+import sys.FileSystem;
 import sys.io.File;
 
 using StringTools;
@@ -140,14 +143,12 @@ class MainState extends FlxState
                 moduleName = path.shift();
 
             final module = ScriptedTypeUtil.resolveModule((pack.length >= 1 ? pack.join('.') + '.' + (moduleName ?? path[0]) : path[0]));
-            // Check file.
 
             if (module == null)
                 return null;
 
             final typeName = path[0];
 
-            // Remove other types, include packages, imports and etc.
             final newModule:Array<ModuleDecl> = [];
 
             var typeDecl:Null<ModuleDecl> = null;
@@ -189,7 +190,9 @@ class MainState extends FlxState
                 default: null;
             }
         };
-        
+
+        presetHScript();
+
         super.create();
         
         FlxG.switchState(() -> new backend.CustomState('Main'));
@@ -226,4 +229,62 @@ class MainState extends FlxState
     ')
     public static function allocConsole() {}
     #end
+
+    static function presetHScript()
+    {
+        final curPackage:Map<String, Dynamic> = RuleScript.defaultImports[''];
+
+		var presetClasses:Array<Class<Dynamic>> = [
+			flixel.FlxG,
+			flixel.sound.FlxSound,
+			flixel.FlxState,
+			flixel.FlxSprite,
+			flixel.FlxCamera,
+			flixel.math.FlxMath,
+			flixel.util.FlxTimer,
+			flixel.text.FlxText,
+			flixel.tweens.FlxEase,
+			flixel.tweens.FlxTween,
+			flixel.group.FlxSpriteGroup,
+			flixel.group.FlxGroup.FlxTypedGroup,
+
+			Array,
+			String,
+			Std,
+			Math,
+			Type,
+			Reflect,
+			Date,
+			DateTools,
+			Xml,
+			EReg,
+			Lambda,
+			IntIterator,
+
+			sys.io.Process,
+			haxe.ds.StringMap,
+			haxe.ds.IntMap,
+			haxe.ds.EnumValueMap,
+	
+			sys.io.File,
+			sys.FileSystem,
+			Sys,
+
+			backend.CustomState,
+			backend.CustomSubState,
+			Paths
+		];
+
+        for (theClass in presetClasses)
+			curPackage.set(Type.getClassName(theClass).split('.').pop(), theClass);
+
+		var presetVariables:StringMap<Dynamic> = [
+			'FlxColor' => hscript.HScriptFlxColor,
+			'FlxKey' => hscript.HScriptFlxKey,
+			'Json' => hscript.ALEJson
+		];
+
+		for (preVar in presetVariables.keys())
+			curPackage.set(preVar, presetVariables.get(preVar));
+    }
 }
