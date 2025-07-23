@@ -9,6 +9,8 @@ import flixel.FlxObject;
 import sys.FileSystem;
 import sys.io.File;
 
+import hscript.HScriptImports;
+
 enum abstract ScriptType(String)
 {
 	var STATE = 'state';
