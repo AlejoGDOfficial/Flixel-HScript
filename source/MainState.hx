@@ -279,8 +279,6 @@ class MainState extends FlxState
 			curPackage.set(Type.getClassName(theClass).split('.').pop(), theClass);
 
 		var presetVariables:StringMap<Dynamic> = [
-			'FlxColor' => hscript.HScriptFlxColor,
-			'FlxKey' => hscript.HScriptFlxKey,
 			'Json' => hscript.ALEJson
 		];
 
