@@ -23,6 +23,8 @@ class ScriptText extends FlxText implements RuleScriptedClass {}
 
 class ScriptGroup extends FlxGroup implements RuleScriptedClass {}
 
+class ScriptSpriteGroup extends FlxSpriteGroup implements RuleScriptedClass {}
+
 class ScriptTimer extends FlxTimer implements RuleScriptedClass {}
 
 class ScriptSound extends FlxSound implements RuleScriptedClass {}
