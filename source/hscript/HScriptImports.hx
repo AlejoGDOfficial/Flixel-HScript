@@ -10,10 +10,6 @@ import hscript.imports.SysImports;
 
 import hscript.imports.OpenFLImports;
 
-import hscript.ALERuntimeShader;
-
-import hscript.ALEJson;
-
 import hscript.Extensible;
 
 class HScriptImports {}

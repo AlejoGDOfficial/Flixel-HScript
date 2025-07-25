@@ -47,8 +47,8 @@ class CustomSubState extends ScriptSubState
 
     private function loadScripts()
     {
-        loadScript('scripts/substates/' + scriptName);
-        loadScript('scripts/substates/global');
+        loadScript(scriptName);
+        loadScript('global');
     }
 
     override public function update(elapsed:Float)

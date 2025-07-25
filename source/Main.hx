@@ -12,9 +12,7 @@ import lime.app.Application;
 
 import backend.CustomState;
 
-#if cpp
-import cpp.RawPointer;
-#end
+import openfl.Lib;
 
 class Main extends Sprite
 {
@@ -23,6 +21,8 @@ class Main extends Sprite
 		super();
 
 		addChild(new FlxGame(0, 0, MainState, true));
+
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
 		FlxG.signals.gameResized.add(
 			function (width:Float, height:Float)
@@ -59,7 +59,7 @@ class Main extends Sprite
 				case FilePos(s, file, line, column):
 					errMsg += file + " (line " + line + ")\n";
 				default:
-					debugTrace(stackItem, ERROR);
+					Sys.println('[ERROR] ' + stackItem);
 			}
 		}
 
@@ -67,7 +67,7 @@ class Main extends Sprite
 	
 		Application.current.window.alert(errMsg, 'Flixel HScript | Crash Handler');
 
-		debugTrace(errMsg, ERROR);
+		Sys.println('[ERROR] ' + errMsg);
 
 		Sys.exit(1);
 	}

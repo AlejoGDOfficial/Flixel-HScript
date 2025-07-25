@@ -7,6 +7,7 @@ import lime.app.Application;
 
 import hscript.Expr.ModuleDecl;
 import hscript.Printer;
+import hscript.ALEParser;
 
 import rulescript.RuleScript;
 import rulescript.Tools;
@@ -97,7 +98,7 @@ class MainState extends FlxState
             if (!Paths.fileExists(filePath))
                 return null;
 
-            var parser = new HxParser();
+            var parser = new ALEParser(name);
             parser.allowAll();
             parser.mode = MODULE;
 
@@ -108,7 +109,7 @@ class MainState extends FlxState
         {
 			var type:ScriptedClassType = ScriptedTypeUtil.resolveScript(typePath);
 
-			var script = new hscript.ALERuleScript();
+			var script = new hscript.ALERuleScript(typePath);
 
 			script.superInstance = superInstance;
 
@@ -272,16 +273,14 @@ class MainState extends FlxState
 
 			backend.CustomState,
 			backend.CustomSubState,
-			Paths,
-            CoolUtil
+			Paths
 		];
 
         for (theClass in presetClasses)
 			curPackage.set(Type.getClassName(theClass).split('.').pop(), theClass);
 
 		var presetVariables:StringMap<Dynamic> = [
-			'Json' => hscript.ALEJson,
-            'debugTrace' => CoolUtil.debugTrace
+			'Json' => hscript.ALEJson
 		];
 
 		for (preVar in presetVariables.keys())

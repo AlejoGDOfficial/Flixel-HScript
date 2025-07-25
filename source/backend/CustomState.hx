@@ -48,8 +48,8 @@ class CustomState extends ScriptState
 
     public function loadScripts()
     {
-        loadScript('scripts/states/' + scriptName);
-        loadScript('scripts/states/global');
+        loadScript(scriptName);
+        loadScript('global');
     }
 
     override public function update(elapsed:Float)

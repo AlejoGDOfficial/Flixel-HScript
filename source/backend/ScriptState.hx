@@ -88,15 +88,17 @@ class ScriptState extends FlxState
 
     public function loadHScript(path:String)
     {
-        if (Paths.fileExists(path + '.hx'))
+        var newPath:String = 'scripts/states/' + path;
+
+        if (Paths.fileExists(newPath + '.hx'))
         {
-            var script:HScript = new HScript(Paths.getPath(path + '.hx'), STATE);
+            var script:HScript = new HScript(Paths.getPath(newPath + '.hx'), STATE, path);
 
             if (!script.failedParsing)
             {
                 hScripts.push(script);
 
-                debugTrace('"' + path + '.hx" has been Successfully Loaded', HSCRIPT);
+                Sys.println('[HSCRIPT] "' + newPath + '.hx" has been Successfully Loaded');
             }
         }
     }

@@ -9,6 +9,6 @@ class ALEJson
     public static function parse(raw:String)
         return Json.parse(raw);
 
-    public static function stringify(object:Dynamic)
-        return JsonPrinter.print(object, null, '\t');
+    public static function stringify(object:Dynamic, ?separator:String = '\t')
+        return JsonPrinter.print(object, null, separator);
 }

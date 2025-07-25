@@ -43,7 +43,7 @@ class Paths
         }
 
         if (missingPrint)
-            debugTrace(path, MISSING_FILE);
+            Sys.println('[MISSING FILE] ' + path);
 
         return null;
     }
@@ -67,12 +67,6 @@ class Paths
 
 		return newGraphic;
 	}
-
-    public static function inst(songRoute:String, missingPrint:Bool = true):Sound
-        return returnSound(songRoute + '/song/Inst', missingPrint);
-
-    public static function voices(songRoute:String, ?prefix:String = '', missingPrint:Bool = true):Sound
-        return returnSound(songRoute + '/song/' + prefix + 'Voices', missingPrint);
 
     public static function music(file:String, missingPrint:Bool = true):Sound
         return returnSound('music/' + file, missingPrint);
@@ -100,7 +94,7 @@ class Paths
         }
 
         if (missingPrint)
-            debugTrace(path, MISSING_FILE);
+            Sys.println('[MISSING FILE] ' + path);
 
         return null;
     }
@@ -128,7 +122,7 @@ class Paths
         if (!fileExists(path))
         {
             if (missingPrint)
-                debugTrace(path, MISSING_FILE);
+                Sys.println('[MISSING FILE] ' + path);
 
             return null;
         }
@@ -143,7 +137,7 @@ class Paths
         if (!fileExists(path))
         {
             if (missingPrint)
-                debugTrace(path, MISSING_FILE);
+                Sys.println('[MISSING FILE] ' + path);
 
             return null;
         }
@@ -158,7 +152,7 @@ class Paths
         if (!fileExists(file))
         {
             if (missingPrint)
-                debugTrace(path, MISSING_FILE);
+                Sys.println('[MISSING FILE] ' + path);
             
             return null;
         }
@@ -209,7 +203,7 @@ class Paths
         if (!fileExists(path))
         {
             if (missingPrint)
-                debugTrace(path, MISSING_FILE);
+                Sys.println('[MISSING FILE] ' + path);
 
             return null;
         }
@@ -223,7 +217,7 @@ class Paths
             return 'assets/' + file;
 
         if (missingPrint)
-            debugTrace(file, MISSING_FILE);
+            Sys.println('[MISSING FILE] ' + file);
 
         return null;
     }

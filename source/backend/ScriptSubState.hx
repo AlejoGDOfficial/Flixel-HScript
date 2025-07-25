@@ -42,15 +42,17 @@ class ScriptSubState extends FlxSubState
 
     public inline function loadHScript(path:String)
     {
-        if (Paths.fileExists(path + '.hx'))
+        var newPath:String = 'scripts/substates/' + path;
+
+        if (Paths.fileExists(newPath + '.hx'))
         {
-            var script:HScript = new HScript(Paths.getPath(path + '.hx'), SUBSTATE);
+            var script:HScript = new HScript(Paths.getPath(newPath + '.hx'), SUBSTATE, path);
 
             if (!script.failedParsing)
             {
                 hScripts.push(script);
 
-                debugTrace('"' + path + '.hx" has been Successfully Loaded', HSCRIPT);
+                Sys.println('[HSCRIPT] "' + newPath + '.hx" has been Successfully Loaded');
             }
         }
     }

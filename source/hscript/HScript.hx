@@ -23,11 +23,11 @@ class HScript extends ALERuleScript
 {
 	public final type:ScriptType;
 
-	override public function new(filePath:String, type:ScriptType)
+	override public function new(filePath:String, type:ScriptType, scriptName:String)
 	{
 		this.type = type;
 
-		super();
+		super(scriptName);
 
 		preset();
 
