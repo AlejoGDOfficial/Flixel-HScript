@@ -15,12 +15,6 @@ import flixel.addons.display.*;
 
 class Extensible {}
 
-class BasicClass {
-    public function new() {}
-}
-
-class Basic extends BasicClass implements RuleScriptedClass {}
-
 class ScriptObject extends FlxObject implements RuleScriptedClass {}
 
 class ScriptSprite extends FlxSprite implements RuleScriptedClass {}
