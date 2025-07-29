@@ -10,6 +10,6 @@ haxelib install lime 8.2.2
 haxelib install openfl 9.4.1
 haxelib install flixel-addons 3.3.2
 haxelib git hxcpp https://github.com/AlejoGDOfficial/MobilePorting-hxcpp --skip-dependencies
-haxelib git rulescript https://github.com/Kriptel/RuleScript e4771c87d302f59cd89d505c468daa9aaeaf79f0 --skip-dependencies
+haxelib git rulescript https://github.com/Kriptel/RuleScript 79b4bc3dfa14a6de3a9805aea04d6abe957d75b5 --skip-dependencies
 haxelib git hscript https://github.com/HaxeFoundation/hscript 04e7d656b667f375bbe58ee10082aee2850a3f9c
 haxelib install tjson 1.4.0
