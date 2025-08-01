@@ -23,6 +23,8 @@ class Paths
 	public static var cachedGraphics:StringMap<FlxGraphic> = new StringMap<FlxGraphic>();
     public static var cachedSounds:StringMap<Sound> = new StringMap<Sound>();
 
+    public static var folder:String = '';
+
     public static function image(file:String, missingPrint:Bool = true):FlxGraphic
     {
         var path = 'images/' + file + '.' + IMAGE_EXT;
@@ -214,7 +216,7 @@ class Paths
     public static inline function getPath(file:String, missingPrint:Bool = true):String
     {
         if (fileExists(file))
-            return 'assets/' + file;
+            return 'projects/' + folder + '/' + file;
 
         if (missingPrint)
             Sys.println('[MISSING FILE] ' + file);
@@ -224,7 +226,7 @@ class Paths
 
     public static inline function fileExists(path:String):Bool
     {
-        if (FileSystem.exists('assets/' + path))
+        if (FileSystem.exists('projects/' + folder + '/' + path))
             return true;
         
         return false;

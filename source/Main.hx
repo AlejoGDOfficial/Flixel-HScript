@@ -2,9 +2,11 @@ package;
 
 import flixel.FlxGame;
 import flixel.FlxG;
+import flixel.input.keyboard.FlxKey;
 
 import openfl.display.Sprite;
 import openfl.events.UncaughtErrorEvent;
+import openfl.events.KeyboardEvent;
 
 import haxe.CallStack;
 
@@ -14,11 +16,28 @@ import backend.CustomState;
 
 import openfl.Lib;
 
+import haxe.io.Path;
+
+#if android
+import extension.androidtools.content.Context;
+
+import sys.FileSystem;
+#end
+
 class Main extends Sprite
 {
 	public function new()
 	{
 		super();
+
+	    #if android
+		var dir:String = Context.getExternalFilesDir();
+
+		if (!FileSystem.exists(dir))
+			FileSystem.createDirectory(dir);
+
+		Sys.setCwd(Path.addTrailingSlash(dir));
+		#end
 
 		addChild(new FlxGame(0, 0, MainState, true));
 
@@ -35,7 +54,9 @@ class Main extends Sprite
 				if (FlxG.game != null)
 					resetSpriteCache(FlxG.game);
 	   		}
-	   );
+	   	);
+	   
+		FlxG.game.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPressed);
 	}
 	
 	private static function resetSpriteCache(sprite:Sprite):Void
@@ -71,4 +92,18 @@ class Main extends Sprite
 
 		Sys.exit(1);
 	}
+    
+    function onKeyPressed(event:KeyboardEvent)
+    {
+        if (FlxG.keys.pressed.CONTROL && FlxG.keys.pressed.SHIFT)
+        {
+			if (event.keyCode == FlxKey.M)
+			{
+				if (FlxG.state.subState != null)
+					FlxG.state.subState.close();
+
+				FlxG.switchState(() -> new ProjectsState());
+			}
+        }
+    }
 }

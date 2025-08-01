@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxState;
 import flixel.FlxG;
+import flixel.util.FlxSave;
 
 import lime.app.Application;
 
@@ -195,8 +196,16 @@ class MainState extends FlxState
         presetHScript();
 
         super.create();
+
+        @:privateAccess
+		FlxG.save.bind('Flixel-HScript', FlxG.stage.application.meta.get('company') + '/' + FlxSave.validate(FlxG.stage.application.meta.get('file')));
+
+        Paths.folder = FlxG.save.data.flixelhscriptsavedataselectedproject ?? '?';
         
-        FlxG.switchState(() -> new backend.CustomState('Main'));
+        if (FileSystem.exists('projects/' + Paths.folder) && FileSystem.isDirectory('projects/' + Paths.folder))
+            FlxG.switchState(() -> new backend.CustomState('Main'));
+        else
+            FlxG.switchState(() -> new ProjectsState());
     }
 
     #if (windows && cpp)

@@ -13,3 +13,4 @@ haxelib git hxcpp https://github.com/AlejoGDOfficial/MobilePorting-hxcpp --skip-
 haxelib git rulescript https://github.com/Kriptel/RuleScript 7bea5b4e8b137f112523f1fa41b6ac7e11f51df0 --skip-dependencies
 haxelib git hscript https://github.com/HaxeFoundation/hscript 04e7d656b667f375bbe58ee10082aee2850a3f9c
 haxelib install tjson 1.4.0
+haxelib install extension-androidtools 2.2.1 --skip-dependencies

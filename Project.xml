@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<app title="Flixel HScript" file="FlixelHScript" main="Main" version="0.0.1" company="AlejoGDOfficial"/>
+	<app title="Flixel HScript" file="FlixelHScript" main="Main" packageName="com.alejogdofficial.flixelhscript" package="com.alejogdofficial.flixelhscript" version="0.0.1" company="AlejoGDOfficial"/>
 
 	<app preloader="flixel.system.FlxPreloader"/>
 
@@ -12,11 +12,15 @@
 
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0"/>
 
+	<define name="NO_PRECOMPILED_HEADERS" if="mobile"/>
+
 	<set name="BUILD_DIR" value="export/debug" if="debug"/>
 	<set name="BUILD_DIR" value="export/release" unless="debug"/>
 	<set name="BUILD_DIR" value="export/32bit" if="32bits"/>
 
 	<source path="source"/>
+	
+	<assets path="projects" embed="false"/>
 
 	<haxelib name="flixel"/>
 
@@ -26,6 +30,8 @@
 
 	<haxelib name="rulescript"/>
 
+	<haxelib name="extension-androidtools" if="android"/>
+	
 	<haxedef name="hscriptPos"/>
 
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN"/>
