@@ -6,6 +6,7 @@ echo Installing dependencies
 @if not exist ".haxelib\" mkdir .haxelib
 
 haxelib install flixel 6.1.0
+haxelib install flixel-ui 2.6.4
 haxelib install lime 8.2.2
 haxelib install openfl 9.4.1
 haxelib install flixel-addons 3.3.2

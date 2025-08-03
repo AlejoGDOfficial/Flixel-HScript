@@ -26,6 +26,8 @@
 
 	<haxelib name="flixel-addons"/>
 
+	<haxelib name="flixel-ui"/>
+
 	<haxelib name="tjson"/>
 
 	<haxelib name="rulescript"/>

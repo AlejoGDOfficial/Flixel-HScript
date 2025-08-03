@@ -1,0 +1,39 @@
+package hscript.imports;
+
+import flixel.addons.ui.FlxBaseMultiInput;
+import flixel.addons.ui.FlxInputText;
+import flixel.addons.ui.FlxMultiGamepad;
+import flixel.addons.ui.FlxMultiGamepadAnalogStick;
+import flixel.addons.ui.FlxMultiKey;
+import flixel.addons.ui.FlxUI;
+import flixel.addons.ui.FlxUI9SliceSprite;
+import flixel.addons.ui.FlxUIAssets;
+import flixel.addons.ui.FlxUIBar;
+import flixel.addons.ui.FlxUIButton;
+import flixel.addons.ui.FlxUICheckBox;
+import flixel.addons.ui.FlxUIColorSwatch;
+import flixel.addons.ui.FlxUIColorSwatchSelecter;
+import flixel.addons.ui.FlxUICursor;
+import flixel.addons.ui.FlxUIDropDownMenu;
+import flixel.addons.ui.FlxUIGroup;
+import flixel.addons.ui.FlxUIInputText;
+import flixel.addons.ui.FlxUILine;
+import flixel.addons.ui.FlxUIList;
+import flixel.addons.ui.FlxUILoadingScreen;
+import flixel.addons.ui.FlxUIMouse;
+import flixel.addons.ui.FlxUINumericStepper;
+import flixel.addons.ui.FlxUIPopup;
+import flixel.addons.ui.FlxUIRadioGroup;
+import flixel.addons.ui.FlxUIRegion;
+import flixel.addons.ui.FlxUISlider;
+import flixel.addons.ui.FlxUISprite;
+import flixel.addons.ui.FlxUISpriteButton;
+import flixel.addons.ui.FlxUIState;
+import flixel.addons.ui.FlxUITabMenu;
+import flixel.addons.ui.FlxUIText;
+import flixel.addons.ui.FlxUITileTest;
+import flixel.addons.ui.FlxUITooltip;
+import flixel.addons.ui.FlxUITooltipManager;
+import flixel.addons.ui.FlxUITypedButton;
+
+class FlixelUIImports {}

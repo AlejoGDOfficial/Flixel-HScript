@@ -4,6 +4,8 @@ import hscript.imports.FlixelImports;
 
 import hscript.imports.FlixelAddonsImports;
 
+import hscript.imports.FlixelUIImports;
+
 import hscript.imports.HaxeImports;
 
 import hscript.imports.SysImports;
