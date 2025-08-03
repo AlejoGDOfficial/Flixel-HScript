@@ -45,8 +45,10 @@ class ProjectsState extends FlxState
 
     var canSelect:Bool = false;
 
-    override function new()
+    override function create()
     {
+        super.create();
+
         FlxTimer.globalManager.clear();
 
 		FlxTween.globalManager.clear();
@@ -59,11 +61,6 @@ class ProjectsState extends FlxState
 			
 			FlxG.sound.music = null;
 		}
-    }
-
-    override function create()
-    {
-        super.create();
 
         FlxG.fullscreen = false;
 
