@@ -45,6 +45,22 @@ class ProjectsState extends FlxState
 
     var canSelect:Bool = false;
 
+    override function new()
+    {
+        FlxTimer.globalManager.clear();
+
+		FlxTween.globalManager.clear();
+
+		FlxG.camera.bgColor = FlxColor.BLACK;
+
+		if (FlxG.sound.music != null)
+		{
+			FlxG.sound.music.stop();
+			
+			FlxG.sound.music = null;
+		}
+    }
+
     override function create()
     {
         super.create();
