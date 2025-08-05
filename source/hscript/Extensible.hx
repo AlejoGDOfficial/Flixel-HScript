@@ -13,6 +13,8 @@ import flixel.graphics.*;
 import flixel.addons.ui.*;
 import flixel.addons.display.*;
 
+private typedef FlxDrawItem = flixel.graphics.tile.FlxDrawQuadsItem;
+
 class Extensible {}
 
 class ScriptObject extends FlxObject implements RuleScriptedClass {}
@@ -43,4 +45,6 @@ class ScriptState extends FlxState implements RuleScriptedClass {}
 
 class ScriptBasic extends FlxBasic implements RuleScriptedClass {}
 
-class ScriptRuntimeShader extends FlxRuntimeShader {}
+class ScriptRuntimeShader extends FlxRuntimeShader implements RuleScriptedClass {}
+
+class ScriptCamera extends FlxCamera implements RuleScriptedClass {}
