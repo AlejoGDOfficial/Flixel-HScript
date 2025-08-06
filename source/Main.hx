@@ -18,14 +18,39 @@ import openfl.Lib;
 
 import haxe.io.Path;
 
+import sys.thread.Thread;
+
 #if android
 import extension.androidtools.content.Context;
 
 import sys.FileSystem;
 #end
 
+typedef DataJson = {
+	var developerMode:Bool;
+	var scriptsHotReloading:Bool;
+}
+
 class Main extends Sprite
 {
+	public static var data:DataJson = {
+		developerMode: false,
+		scriptsHotReloading: false
+	};
+
+	@:allow(backend.CustomState)
+	private static function createSafeThread(func:Void -> Void):Thread
+	{
+		return Thread.create(function()
+		{
+			try {
+				func();
+			} catch(e) {
+				trace('[ERROR] ' + e.details());
+			}
+		});
+	}
+
 	public function new()
 	{
 		super();

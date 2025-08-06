@@ -201,11 +201,35 @@ class MainState extends FlxState
 		FlxG.save.bind('Flixel-HScript', FlxG.stage.application.meta.get('company') + '/' + FlxSave.validate(FlxG.stage.application.meta.get('file')));
 
         Paths.folder = FlxG.save.data.flixelhscriptsavedataselectedproject ?? '?';
+
+        loadGameMetadata();
         
         if (FileSystem.exists('projects/' + Paths.folder) && FileSystem.isDirectory('projects/' + Paths.folder))
             FlxG.switchState(() -> new backend.CustomState('Main'));
         else
             FlxG.switchState(() -> new ProjectsState());
+    }
+
+    function loadGameMetadata()
+    {
+        Main.data = {
+            developerMode: false,
+            scriptsHotReloading: false
+        };
+
+        if (Paths.folder != '?')
+        {
+            if (Paths.fileExists('data.json'))
+            {
+                var data:Dynamic = haxe.Json.parse(File.getContent(Paths.getPath('data.json')));
+
+                for (field in Reflect.fields(Main.data))
+                    if (Reflect.field(data, field) != null)
+                        Reflect.setField(Main.data, field, Reflect.field(data, field));
+            }
+        }
+
+        FlxG.autoPause = !Main.data.developerMode || !Main.data.scriptsHotReloading;
     }
 
     #if (windows && cpp)
